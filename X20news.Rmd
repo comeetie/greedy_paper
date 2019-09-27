@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(greed)
 library(future)
 plan(multisession)
-load("~/Projets/greedy_paper/data-raw/X20news.rda")
+load("data-raw/X20news.rda")
 nbrun = 25
 sol_h=list()
 sol_h100=list()
