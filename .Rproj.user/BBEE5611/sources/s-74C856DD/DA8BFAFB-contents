@@ -1,0 +1,32 @@
+library(greed)
+library(purrr)
+library(rjson)
+sol=greed(Xvlegislature$X[,ith])
+load("/data/Projets/greed/data-raw/Xvlegislature.rda")
+ith=colSums(Xvlegislature$X)>50
+
+col_meta=Xvlegislature$col_meta[ith,]
+  
+  
+tree=list()
+for (k in 1:sol@K){
+  children_index = which(sol@cl==k)
+  if(max(children_index)<=nrow(Xvlegislature$X)){
+    print("row clust")
+    children = map(children_index,function(i){list(name=Xvlegislature$row_meta[i,"name"],partie=Xvlegislature$row_meta[i,"partie"],votes=names(which(Xvlegislature$X[i,]>0)))})
+    tree[[k]]=list(name=k,children=children,type="row")
+  }else{
+    print("col clust")
+    children = map(children_index-nrow(Xvlegislature$X),function(i){list(name=col_meta[i,"suid"],titre=col_meta[i,"titre"])})
+    tree[[k]]=list(name=k,children=children,type="col")
+  }
+
+}
+
+write(toJSON(tree),"/home/come/Bureau/Xvlegislature.json")
+
+
+data("Jazz")
+solJ=greed(Jazz)
+
+names(Jazz)

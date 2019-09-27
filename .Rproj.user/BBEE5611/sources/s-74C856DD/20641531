@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1569596503988.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "20641531",
+    "lastKnownWriteTime" : 1568710434,
+    "last_content_update" : 1568710434,
+    "path" : "~/Projets/greedy_paper/Blogs.Rmd",
+    "project_path" : "Blogs.Rmd",
+    "properties" : {
+        "cursorPosition" : "28,1",
+        "scrollLine" : "12"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 8,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

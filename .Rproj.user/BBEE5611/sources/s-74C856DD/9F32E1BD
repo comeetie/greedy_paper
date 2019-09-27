@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1568625052388.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2017038440",
+    "id" : "9F32E1BD",
+    "lastKnownWriteTime" : 1569596539,
+    "last_content_update" : 1569596539941,
+    "path" : "~/Projets/greedy_paper/frenchp.Rmd",
+    "project_path" : "frenchp.Rmd",
+    "properties" : {
+        "cursorPosition" : "41,149",
+        "scrollLine" : "12"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

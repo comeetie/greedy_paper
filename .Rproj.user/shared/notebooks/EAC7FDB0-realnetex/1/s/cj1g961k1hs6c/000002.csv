@@ -1,0 +1,7 @@
+"0","p1=plot(fit_o)+ggtitle(""greedy"")
+"
+"2","Loading required package: greed
+"
+"2","Error in as.double(y) : 
+  cannot coerce type 'S4' to vector of type 'double'
+"
