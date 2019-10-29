@@ -21,11 +21,11 @@ sol_h50=list()
 sol_seed=list()
 sol_ms=list()
 for (i in 1:nbrun){
-  sol_h[[i]]=greed(Books$X,K=40)
-  sol_h50[[i]]=greed(Books$X,K=40, alg=new("hybrid",pop_size=50))
-  sol_h100[[i]]=greed(Books$X,K=40, alg=new("hybrid",pop_size=100))
-  sol_seed[[i]]=greed(Books$X,K=40,alg=new("seed"))
-  sol_ms[[i]]=greed(Books$X,K=40,alg=new("multistarts"))
+  sol_h[[i]]=greed(Books$X,K=20)
+  sol_h50[[i]]=greed(Books$X,K=20, alg=new("hybrid",pop_size=50))
+  sol_h100[[i]]=greed(Books$X,K=20, alg=new("hybrid",pop_size=100))
+  sol_seed[[i]]=greed(Books$X,K=20,alg=new("seed"))
+  sol_ms[[i]]=greed(Books$X,K=20,alg=new("multistarts"))
 }
 ```
 
@@ -40,6 +40,19 @@ library(ggplot2)
   sSeed = tibble(icl=sapply(sol_seed,function(s){s@icl}),alg="Seed")
   gg=sH%>%bind_rows(sMs)%>%bind_rows(sSeed)%>%bind_rows(sH100) %>%bind_rows(sH50) %>% mutate(alg=factor(alg,levels = c("Multistart","Seed","Hybrid (20)","Hybrid (50)","Hybrid (100)")))
   ggplot(gg)+geom_boxplot(aes(x=alg,group=alg,y=icl))+geom_point(aes(x=alg,y=icl))+xlab("")+ylab("ICL")+theme_bw()+ggtitle("Political books co-purchassing network")
-
-
 ```
+
+```{r bookscomb,echo=FALSE, cache=TRUE,message=FALSE,results="hide",fig.width=5.5,fig.height=4.5}
+  library(gridExtra)
+library(grid)
+  box=ggplot(gg)+geom_boxplot(aes(x=alg,group=alg,y=icl))+geom_point(aes(x=alg,y=icl))+xlab("")+ylab("ICL")+theme_bw()+ggtitle("Political books co-purchassing network")
+  ggK = tibble(K=sapply(sol_h100,function(s){s@K}),alg="Hybrid (100)")
+  hh=ggplot(ggK)+geom_histogram(aes(x=K))+theme_bw()
+  grid.newpage()
+vpb_ <- viewport(width = 1, height = 1, x = 0.5, y = 0.5)  
+vpa_ <- viewport(width = 0.4, height = 0.4, x = 0.75, y = 0.4)  
+print(box, vp = vpb_)
+print(hh, vp = vpa_)
+  
+```
+

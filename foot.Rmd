@@ -21,11 +21,11 @@ sol_h50=list()
 sol_seed=list()
 sol_ms=list()
 for (i in 1:nbrun){
-  sol_h[[i]]=greed(Football$X,K=40)
-  sol_h50[[i]]=greed(Football$X,K=40, alg=new("hybrid",pop_size=50))
-  sol_h100[[i]]=greed(Football$X,K=40, alg=new("hybrid",pop_size=100))
-  sol_seed[[i]]=greed(Football$X,K=40,alg=new("seed"))
-  sol_ms[[i]]=greed(Football$X,K=40,alg=new("multistarts"))
+  sol_h[[i]]=greed(Football$X,K=20)
+  sol_h50[[i]]=greed(Football$X,K=20, alg=new("hybrid",pop_size=50))
+  sol_h100[[i]]=greed(Football$X,K=20, alg=new("hybrid",pop_size=100))
+  sol_seed[[i]]=greed(Football$X,K=20,alg=new("seed"))
+  sol_ms[[i]]=greed(Football$X,K=20,alg=new("multistarts"))
 }
 ```
 

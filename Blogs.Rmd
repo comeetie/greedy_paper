@@ -9,7 +9,7 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r jazzpalg,echo=FALSE, cache=TRUE,message=FALSE,results="hide"}
+```{r blogspalg,echo=FALSE, cache=TRUE,message=FALSE,results="hide"}
 library(greed)
 library(future)
 plan(multisession)
@@ -32,7 +32,7 @@ for (i in 1:nbrun){
 
 ```{r blogs,echo=FALSE, cache=TRUE,message=FALSE,results="hide",fig.width=5.5,fig.height=4.5}
   library(dplyr)
-library(ggplot2)
+  library(ggplot2)
   sH=tibble(icl=sapply(sol_h,function(s){s@icl}),alg="Hybrid (20)")
   sH50=tibble(icl=sapply(sol_h50,function(s){s@icl}),alg="Hybrid (50)")
   sH100=tibble(icl=sapply(sol_h100,function(s){s@icl}),alg="Hybrid (100)")
@@ -42,4 +42,24 @@ library(ggplot2)
   ggplot(gg)+geom_boxplot(aes(x=alg,group=alg,y=icl))+geom_point(aes(x=alg,y=icl))+xlab("")+ylab("ICL")+theme_bw()+ggtitle("Blogs Network")
 
 
+```
+
+
+```{r blogscomb,echo=FALSE, cache=TRUE,message=FALSE,results="hide",fig.width=5.5,fig.height=4.5}
+  library(gridExtra)
+library(grid)
+  box=  ggplot(gg)+geom_boxplot(aes(x=alg,group=alg,y=icl,color=alg))+geom_point(aes(x=alg,y=icl,color=alg))+xlab("")+ylab("ICL")+theme_bw()+ggtitle("Blogs Network")+scale_color_discrete(guide="none")
+    sH=tibble(K=sapply(sol_h,function(s){s@K}),alg="Hybrid (20)")
+  sH50=tibble(K=sapply(sol_h50,function(s){s@K}),alg="Hybrid (50)")
+  sH100=tibble(K=sapply(sol_h100,function(s){s@K}),alg="Hybrid (100)")
+  sMs = tibble(K=sapply(sol_ms,function(s){s@K}),alg="Multistart")
+  sSeed = tibble(K=sapply(sol_seed,function(s){s@K}),alg="Seed")
+  ggK=sH%>%bind_rows(sMs)%>%bind_rows(sSeed)%>%bind_rows(sH100) %>%bind_rows(sH50) %>% mutate(alg=factor(alg,levels = c("Multistart","Seed","Hybrid (20)","Hybrid (50)","Hybrid (100)")))
+  hh=ggplot(ggK)+geom_histogram(aes(x=K,fill=alg))+theme_bw()+scale_fill_discrete(guide="none")
+  grid.newpage()
+vpb_ <- viewport(width = 1, height = 1, x = 0.5, y = 0.5)  
+vpa_ <- viewport(width = 0.4, height = 0.4, x = 0.75, y = 0.4)  
+print(box, vp = vpb_)
+print(hh, vp = vpa_)
+  
 ```
