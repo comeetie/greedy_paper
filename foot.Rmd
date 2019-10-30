@@ -9,11 +9,16 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r footpalg,echo=FALSE, cache=TRUE,message=FALSE,results="hide"}
+```{r}
 library(greed)
 library(future)
+library(methods)
 plan(multisession)
 data("Football")
+
+```
+
+```{r footpalg,echo=FALSE, cache=TRUE,message=FALSE,results="hide"}
 nbrun = 25
 sol_h=list()
 sol_h100=list()
@@ -22,8 +27,8 @@ sol_seed=list()
 sol_ms=list()
 for (i in 1:nbrun){
   sol_h[[i]]=greed(Football$X,K=20)
-  sol_h50[[i]]=greed(Football$X,K=20, alg=new("hybrid",pop_size=50))
-  sol_h100[[i]]=greed(Football$X,K=20, alg=new("hybrid",pop_size=100))
+  sol_h50[[i]]=greed(Football$X,K=20, alg=new("hybrid",pop_size=40))
+  sol_h100[[i]]=greed(Football$X,K=20, alg=new("hybrid",pop_size=80))
   sol_seed[[i]]=greed(Football$X,K=20,alg=new("seed"))
   sol_ms[[i]]=greed(Football$X,K=20,alg=new("multistarts"))
 }
@@ -34,11 +39,11 @@ for (i in 1:nbrun){
   library(dplyr)
 library(ggplot2)
   sH=tibble(icl=sapply(sol_h,function(s){s@icl}),alg="Hybrid (20)")
-  sH50=tibble(icl=sapply(sol_h50,function(s){s@icl}),alg="Hybrid (50)")
-  sH100=tibble(icl=sapply(sol_h100,function(s){s@icl}),alg="Hybrid (100)")
+  sH50=tibble(icl=sapply(sol_h50,function(s){s@icl}),alg="Hybrid (40)")
+  sH100=tibble(icl=sapply(sol_h100,function(s){s@icl}),alg="Hybrid (80)")
   sMs = tibble(icl=sapply(sol_ms,function(s){s@icl}),alg="Multistart")
   sSeed = tibble(icl=sapply(sol_seed,function(s){s@icl}),alg="Seed")
-  gg=sH%>%bind_rows(sMs)%>%bind_rows(sSeed)%>%bind_rows(sH100) %>%bind_rows(sH50) %>% mutate(alg=factor(alg,levels = c("Multistart","Seed","Hybrid (20)","Hybrid (50)","Hybrid (100)")))
+  gg=sH%>%bind_rows(sMs)%>%bind_rows(sSeed)%>%bind_rows(sH100) %>%bind_rows(sH50) %>% mutate(alg=factor(alg,levels = c("Multistart","Seed","Hybrid (20)","Hybrid (40)","Hybrid (80)")))
   ggplot(gg)+geom_boxplot(aes(x=alg,group=alg,y=icl))+geom_point(aes(x=alg,y=icl))+xlab("")+ylab("ICL")+theme_bw()+ggtitle("Football team network")
 
 

@@ -18,6 +18,7 @@ library(future)
 library(knitr)
 library(mixtools)
 library(xtable)
+library(methods)
 plan(multisession)
 ```
 
@@ -45,10 +46,10 @@ for (s in 1:Nbsim){
   mm = rmm(N,pi,cbind(mu),rep(50,N))
   S[,s]=mm$cl
   Xlist[[s]]=mm
-  fit = greed(mm$x,model=new("mm"),alg = new("hybrid",pop_size=50))
+  fit = greed(mm$x,model=new("mm"),alg = new("hybrid",pop_size=40))
   mm$x
   Fi[,s]=fit@cl
-  fit_o = greed::fit_greed(new("mm"),list(X=mm$x),sample(1:20,nrow(mm$x),replace = TRUE))
+  fit_o = greed:::fit_greed(new("mm"),list(X=mm$x),sample(1:20,nrow(mm$x),replace = TRUE))
   Fi_o[,s] = fit_o@cl 
   sel=multmixmodel.sel(as.matrix(mm$x),1:20)
   Kbic=sel[2,ncol(sel)]
@@ -70,7 +71,7 @@ for (s in 1:Nbsim){
 ```{r,echo=FALSE}
 
 iclsim=function(s,cl){
-    fit = greed::fit_greed(new("mm"),list(X=Xlist[[s]]$x),cl,type = "none")
+    fit = greed:::fit_greed(new("mm"),list(X=Xlist[[s]]$x),cl,type = "none")
     fit@icl
 }
 

@@ -1,11 +1,12 @@
 base
+rmarkdown
 greed
-future
-dplyr
-ggplot2
 Matrix
+ggplot2
 magrittr
 ggpubr
+dplyr
+future
 knitr
 mixtools
 xtable

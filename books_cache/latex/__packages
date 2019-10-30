@@ -1,6 +1,6 @@
 base
+rmarkdown
 greed
 future
 dplyr
 ggplot2
-gridExtra

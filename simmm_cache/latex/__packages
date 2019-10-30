@@ -1,10 +1,10 @@
 base
-methods
 datasets
 utils
 grDevices
 graphics
 stats
+rmarkdown
 greed
 Matrix
 ggplot2
@@ -15,3 +15,4 @@ future
 knitr
 mixtools
 xtable
+methods
